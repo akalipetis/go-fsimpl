@@ -112,12 +112,7 @@ func validPath(p string) string {
 
 func (f *gitFS) clone() (fs.FS, error) {
 	if f.repofs == nil {
-		depth := 1
-		if f.repo.Scheme == "file" {
-			// we can't do shallow clones for filesystem repos apparently
-			depth = 0
-		}
-
+		depth := 0
 		bfs, _, err := f.gitClone(f.ctx, *f.repo, depth)
 		if err != nil {
 			return nil, err
